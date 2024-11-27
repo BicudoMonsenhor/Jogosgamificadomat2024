@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades Interativas de Matemática - 7º Ano  habilidade </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 1em;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background: #0056b3;
+        }
+        .scoreboard {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+        .scoreboard span {
+            font-weight: bold;
+        }
+        .bimestre-selector {
+            margin-bottom: 20px;
+        }
+        .bimestre-selector button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .bimestre-selector button.active {
+            background: #007bff;
+            color: white;
+        }
+        .bimestre-selector button:hover {
+            background: #0056b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Atividades Interativas de Matemática</h1>
+        <h2>7º Ano - Currículo 2024 EF0M7 05, 08, 14, 17, 22 ,23</h2>
+
+        <div class="bimestre-selector">
+            <button onclick="selectBimestre(1)" id="bimestre1">1º Bimestre</button>
+            <button onclick="selectBimestre(2)" id="bimestre2">2º Bimestre</button>
+            <button onclick="selectBimestre(3)" id="bimestre3">3º Bimestre</button>
+            <button onclick="selectBimestre(4)" id="bimestre4">4º Bimestre</button>
+        </div>
+
+        <div id="quiz-section">
+            <div class="question" id="question-text">Selecione um bimestre para começar!</div>
+            <div class="options" id="options-container"></div>
+        </div>
+
+        <div class="scoreboard">
+            <p>Jogador 1: <span id="score1">0</span> pontos</p>
+            <p>Jogador 2: <span id="score2">0</span> pontos</p>
+            <p>Vez do: <span id="current-player">Jogador 1</span></p>
+        </div>
+    </div>
+
+    <script>
+        const questionsByBimestre = {
+            1: [
+                { question: "Qual é o valor de 7 x 8?", options: ["54", "56", "64", "48"], answer: 1 },
+                { question: "Qual número é múltiplo de 6?", options: ["13", "24", "19", "21"], answer: 1 },
+                { question: "O MMC de 12 e 18 é:", options: ["24", "36", "48", "54"], answer: 1 },
+                { question: "Qual fração é equivalente a 2/3?", options: ["4/6", "5/6", "3/4", "6/4"], answer: 0 },
+                { question: "A fração 16/24 simplificada é:", options: ["4/6", "2/3", "3/4", "1/2"], answer: 1 },
+                { question: "Se 5 maçãs custam R$10, quanto custam 8 maçãs?", options: ["R$14", "R$16", "R$18", "R$20"], answer: 1 },
+                { question: "João comeu 1/4 de uma pizza e Maria 2/4. Qual fração foi consumida?", options: ["1/2", "3/4", "2/3", "4/4"], answer: 1 },
+                { question: "20% de 150 é:", options: ["30", "40", "25", "20"], answer: 0 },
+                { question: "Quanto é 3³?", options: ["6", "9", "27", "81"], answer: 2 },
+                { question: "Uma caixa tem 50 bolas. 30% são azuis. Quantas bolas azuis há?", options: ["10", "15", "20", "25"], answer: 1 },
+            ],
+            2: [
+                { question: "Qual é o valor de 3x + 2 para x = 4?", options: ["10", "12", "14", "16"], answer: 2 },
+                { question: "Resolva 5x - 10 = 20:", options: ["4", "5", "6", "7"], answer: 2 },
+                { question: "Se C(x) = 2x + 5, qual é o custo para x = 10?", options: ["20", "25", "30", "35"], answer: 1 },
+                // Continue com mais perguntas do 2º bimestre
+            ],
+
+            3: [
+                         
+                  {
+                    question: "Se a função y = 2x + 3, qual é o valor de y quando x = 5?",
+                    "options": ["10", "11", "12", "13"],
+                    "answer": 3
+                  },
+                  {
+                    question: "Resolva a equação 3x - 9 = 0.",
+                    "options": ["2", "3", "4", "5"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Qual é o próximo número da sequência: 2, 4, 8, 16...?",
+                    "options": ["20", "24", "30", "32"],
+                    "answer": 3
+                  },
+                  {
+                    question: "Qual é o perímetro de um quadrado com lado de 6 cm?",
+                    "options": ["24 cm", "36 cm", "18 cm", "12 cm"],
+                    "answer": 0
+                  },
+                  {
+                    question: "Um triângulo tem lados de 3 cm, 4 cm e 5 cm. Qual é o seu perímetro?",
+                    "options": ["10 cm", "12 cm", "15 cm", "9 cm"],
+                    "answer": 2
+                  },
+                               
+                  {
+                    question: "Se uma esfera tem raio 3 cm, qual é o volume da esfera? (Use π = 3)",
+                    "options": ["36 cm³", "81 cm³", "108 cm³", "113 cm³"],
+                    "answer": 1
+                  },
+                  {
+                    question: "O que é a média de 10, 20 e 30?",
+                    "options": ["15", "20", "25", "30"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Se um retângulo tem base de 8 cm e altura de 5 cm, qual é a área?",
+                    "options": ["30 cm²", "35 cm²", "40 cm²", "45 cm²"],
+                    "answer": 2
+                  },
+                  {
+                    question: "Qual é o valor de x na equação x/4 = 8?",
+                    "options": ["28", "32", "36", "40"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Resolva a equação: 2x + 3 = 11.",
+                    "options": ["2", "3", "4", "5"],
+                    "answer": 2
+                  },
+                  {
+                    question: "Qual é a área de um círculo com raio 7 cm? (Use π = 3)",
+                    "options": ["128 cm²", "132 cm²", "147 cm²", "154 cm²"],
+                    "answer": 2
+                  },
+                  {
+                    question: "Qual é a razão da proporção 12:16?",
+                    "options": ["2:3", "3:4", "4:5", "5:6"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Um carro percorre 60 km em 2 horas. Qual é a velocidade média?",
+                    "options": ["25 km/h", "30 km/h", "35 km/h", "40 km/h"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Qual é o número que satisfaz a equação x² - 16 = 0?",
+                    "options": ["-4", "4", "8", "16"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Se a base de um triângulo é 10 cm e sua altura é 6 cm, qual é a área?",
+                    "options": ["30 cm²", "40 cm²", "50 cm²", "60 cm²"],
+                    "answer": 0
+                  }
+                ],
+                4: [
+                                        
+              
+                {
+                  question: "Em uma fábrica, 4 máquinas produzem 200 peças em 5 horas. Quantas horas são necessárias para 5 máquinas produzirem a mesma quantidade de peças?",
+                  "options": ["4 horas", "5 horas", "6 horas", "8 horas"],
+                  "answer": 0
+                },
+                {
+                  question: "Um grupo de 6 pintores pinta uma parede em 12 horas. Quantos pintores são necessários para pintar a mesma parede em 8 horas?",
+                  "options": ["9", "8", "7", "6"],
+                  "answer": 1
+                },
+                {
+                  question: "Uma torneira enche um tanque em 10 horas. Se duas torneiras iguais forem usadas simultaneamente, quanto tempo levará para encher o tanque?",
+                  "options": ["5 horas", "6 horas", "7 horas", "8 horas"],
+                  "answer": 0
+                },
+                {
+                  question: "Se 3 operários levam 15 dias para terminar uma obra, quanto tempo levarão 5 operários para realizar a mesma obra, considerando a mesma eficiência?",
+                  "options": ["9 dias", "10 dias", "12 dias", "15 dias"],
+                  "answer": 1
+                },
+                {
+                  question: "Um carro percorre 360 km em 4 horas. A que velocidade ele percorrerá 540 km em 5 horas?",
+                  "options": ["100 km/h", "108 km/h", "110 km/h", "120 km/h"],
+                  "answer": 1
+                },
+                {
+                  question: "Uma loja vende 15 unidades de um produto por R$300. Qual será o preço para 20 unidades, mantendo a mesma proporção?",
+                  "options": ["R$350", "R$400", "R$450", "R$500"],
+                  "answer": 1
+                },
+                {
+                  question: "Se 8 litros de tinta pintam 32 m², quantos litros serão necessários para pintar 48 m²?",
+                  "options": ["10 litros", "12 litros", "14 litros", "16 litros"],
+                  "answer": 1
+                },
+                {
+                  question: "Se 5 trabalhadores produzem 250 peças por dia, quantos trabalhadores são necessários para produzir 400 peças no mesmo período?",
+                  "options": ["6", "7", "8", "10"],
+                  "answer": 2
+                },
+                {
+                    question: "Um avião percorre 1.200 km em 2 horas. Qual será a distância percorrida em 5 horas na mesma velocidade?",
+                    "options": ["2.500 km", "3.000 km", "3.500 km", "4.000 km"],
+                    "answer": 1
+                  },
+                  {
+                    question: "Uma impressora imprime 120 páginas em 30 minutos. Quantas páginas ela imprimirá em 1 hora?",
+                    "options": ["200", "220", "240", "260"],
+                    "answer": 2
+                  }
+        ],
+            // Adicione perguntas do 3º e 4º bimestres no mesmo formato
+        };
+
+        let currentBimestre = 1;
+        let currentQuestionIndex = 0;
+        let currentPlayer = 1;
+        let scores = { 1: 0, 2: 0 };
+
+        function selectBimestre(bimestre) {
+            currentBimestre = bimestre;
+            currentQuestionIndex = 0;
+            loadQuestion();
+            document.querySelectorAll(".bimestre-selector button").forEach(btn => btn.classList.remove("active"));
+            document.getElementById(`bimestre${bimestre}`).classList.add("active");
+        }
+
+        function loadQuestion() {
+            const questions = questionsByBimestre[currentBimestre];
+            const questionObj = questions[currentQuestionIndex];
+
+            document.getElementById("question-text").innerText = questionObj.question;
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            questionObj.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => handleAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleAnswer(selectedOption) {
+            const questions = questionsByBimestre[currentBimestre];
+            const questionObj = questions[currentQuestionIndex];
+
+            if (selectedOption === questionObj.answer) {
+                scores[currentPlayer]++;
+                alert("Resposta correta! Você ganhou 1 ponto.");
+            } else {
+                alert("Resposta errada! Próximo jogador.");
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+            }
+
+            updateScoreboard();
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                alert("Fim do jogo para este bimestre!");
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById("score1").innerText = scores[1];
+            document.getElementById("score2").innerText = scores[2];
+            document.getElementById("current-player").innerText = `Jogador ${currentPlayer}`;
+        }
+    </script>
+</body>
+</html>
